@@ -1,0 +1,11 @@
+.valida {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.valida input {
+  justify-content: center;
+  margin-bottom: 0px;
+  margin-right: 15px;
+}
