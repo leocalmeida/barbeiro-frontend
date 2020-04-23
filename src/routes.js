@@ -13,7 +13,7 @@ export default function Routes() {
         <Route path="/" exact component={Principal} />
         <Route path="/register" component={Register} />
         <Route path="/dashboard" component={Dashboard} />
-        <Route path="/agendamento/:barbeiro" component={Agendamento} />
+        <Route path="/agendamento/:providerID" component={Agendamento} />
       </Switch>
     </BrowserRouter>
   );

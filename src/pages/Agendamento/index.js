@@ -12,29 +12,26 @@ import "./styles.css";
 import "react-datepicker/dist/react-datepicker.css";
 export default function Agendamento(props) {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [barbeiro, setBarbeiro] = useState("");
+  const [provider, setProvider] = useState("");
   const history = useHistory();
 
-  const idBarbeiro = props.match.params.barbeiro;
-
-  const idUser = sessionStorage.getItem("id");
-  const nome = sessionStorage.getItem("nome");
-
+  const name = sessionStorage.getItem("name");
+  const userID = sessionStorage.getItem("id");
+  const providerID = props.match.params.providerID;
+  
   async function handleAgendamento(e) {
     e.preventDefault();
 
-    const data = selectedDate;
-    const usuarioId = idUser;
-    const barbeiroId = idBarbeiro;
+    const date = selectedDate;
 
     const datas = {
-      data,
-      usuarioId,
-      barbeiroId,
+      date,
+      userID,
+      providerID,
     };
 
     try {
-      await api.post("/agendamento/agendado", datas);
+      await api.post("/agendamento/agendadoteste", datas);
       alert("Agendamento realizado com sucesso");
       history.push("/dashboard");
     } catch (error) {
@@ -43,16 +40,16 @@ export default function Agendamento(props) {
   }
 
   function validaSession() {
-    if (idUser == null || nome == null) {
+    if (userID == null || name == null) {
       return history.push("/");
     }
   }
 
   useEffect(() => {
-    api.get(`agendamento/${idBarbeiro}`).then((response) => {
-      setBarbeiro(response.data);
+    api.get(`agendamentoteste/${providerID}`).then((response) => {
+      setProvider(response.data);
     });
-  }, [idBarbeiro]);
+  }, [providerID]);
 
   validaSession();
 
@@ -65,8 +62,8 @@ export default function Agendamento(props) {
 
         <div className="provider">
           <img src={Avatar} alt="Avatar" />
-
-          <strong>{barbeiro.nome}</strong>
+          
+          <strong>{provider.name}</strong>
         </div>
 
         <DataPicker

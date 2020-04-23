@@ -30,7 +30,7 @@ export default function Dashboard() {
       })
       .then((response) => {
         setProviders(response.data);
-        console.log(response.data);
+        
       });
   }, [userID]);
 
