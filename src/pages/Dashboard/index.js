@@ -8,51 +8,53 @@ import "./styles.css";
 import api from "../../services/api";
 
 export default function Dashboard() {
-  const [barbeiros, setBarbeiros] = useState("");
-  const idUser = sessionStorage.getItem("id");
-  const nome = sessionStorage.getItem("nome");
+  const [providers, setProviders] = useState("");
+  const userID = sessionStorage.getItem("id");
+  const name = sessionStorage.getItem("name");
 
   const history = useHistory();
 
   function validaSession() {
-    if (idUser == null || nome == null) {
+    if (userID == null || name == null) {
       return history.push("/");
     }
   }
+  validaSession();
 
   useEffect(() => {
     api
-      .get("dashboard", {
+      .get("dashboardteste", {
         headers: {
-          authorization: idUser,
+          authorization: userID,
         },
       })
       .then((response) => {
-        setBarbeiros(response.data);
+        setProviders(response.data);
+        console.log(response.data);
       });
-  }, [idUser]);
+  }, [userID]);
+
   function handleLogout() {
     sessionStorage.clear();
     history.push("/");
   }
 
-  validaSession();
   return (
     <div className="container">
       <form>
         <header>
           <img src={Logo} alt="Logo" />
-          <h2>Olá, {nome}</h2>
+          <h2>Olá, {name}</h2>
           <p>Inicie um agendamento escolhendo um dos profissionais abaixo.</p>
         </header>
 
         <ul>
-          {barbeiros &&
-            barbeiros.map((barbeiro) => (
-              <li key={barbeiro.id}>
+          {providers &&
+            providers.map((provider) => (
+              <li key={provider._id}>
                 <img src={Avatar} alt="Avatar" />
-                <strong>{barbeiro.nome}</strong>
-                <Link to={`/agendamento/${barbeiro.id}`}>+</Link>
+                <strong>{provider.name}</strong>
+                <Link to={`/agendamento/${provider._id}`}>+</Link>
               </li>
             ))}
         </ul>

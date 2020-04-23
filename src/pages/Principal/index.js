@@ -19,11 +19,12 @@ export default function Principal() {
     };
 
     try {
-      const response = await api.post("signin", data);
-      // console.log(response);
-      if (response.data.valida === true) {
-        sessionStorage.setItem("id", response.data.user.id);
-        sessionStorage.setItem("nome", response.data.user.nome);
+      const response = await api.post("signinteste", data);
+      console.log(response);
+
+      if (response.data !== "Senha Inválida") {
+        sessionStorage.setItem("id", response.data._id);
+        sessionStorage.setItem("name", response.data.name);
 
         history.push("/dashboard");
       } else {

@@ -6,12 +6,12 @@ import "./styles.css";
 import "../Styles/global.css";
 
 export default function Register() {
-  const [nome, setNome] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [password, setPassword] = useState("");
 
   const falso = false;
-  const [cabelereiro, setCabelereiro] = useState(falso);
+  const [provider, setProvider] = useState(falso);
 
   const history = useHistory();
 
@@ -19,14 +19,16 @@ export default function Register() {
     e.preventDefault();
 
     const data = {
-      nome,
+      name,
       email,
-      senha,
-      cabelereiro,
+      password,
+      provider,
     };
 
     try {
-      await api.post("signup", data);
+      // await api.post("signup", data);
+      await api.post("signupteste", data);
+
       alert("Usuário cadastrado com sucesso");
       history.push("/");
     } catch (error) {
@@ -43,8 +45,8 @@ export default function Register() {
         </header>
         <input
           placeholder="Nome"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           type="email"
@@ -55,14 +57,14 @@ export default function Register() {
         <input
           type="password"
           placeholder="Senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <p className="valida">
           <input
             type="checkbox"
-            value={cabelereiro}
-            onChange={(e) => setCabelereiro(true)}
+            value={provider}
+            onChange={(e) => setProvider(true)}
           />
           <span>É cabelereiro?</span>
         </p>
