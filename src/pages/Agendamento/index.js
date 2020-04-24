@@ -18,11 +18,12 @@ export default function Agendamento(props) {
   const name = sessionStorage.getItem("name");
   const userID = sessionStorage.getItem("id");
   const providerID = props.match.params.providerID;
-  
+
   async function handleAgendamento(e) {
     e.preventDefault();
 
-    const date = selectedDate;
+    const date =
+      selectedDate.toLocaleDateString() + selectedDate.toLocaleTimeString();
 
     const datas = {
       date,
@@ -62,7 +63,7 @@ export default function Agendamento(props) {
 
         <div className="provider">
           <img src={Avatar} alt="Avatar" />
-          
+
           <strong>{provider.name}</strong>
         </div>
 
