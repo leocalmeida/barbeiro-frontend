@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import { addDays, parseISO } from "date-fns";
+import { addDays } from "date-fns";
 import DataPicker from "react-datepicker";
 
-import SimpleReactCalendar from "simple-react-calendar";
 
-import api from "../../services/api";
-import moment from "moment";
 
 export default function Teste() {
   const [selectedDate, setSelectedDate] = useState(null);
 
   async function enviaData(e) {
     e.preventDefault();
+    if (selectedDate == null) {
+      return alert("Preencha uma data");
+    }
     const iso =
-      selectedDate.toLocaleDateString() + selectedDate.toLocaleTimeString();
+      selectedDate.toLocaleDateString();
     console.log("---------------------------------");
     console.log(iso);
     // await api.post("datateste", iso);
@@ -25,15 +25,26 @@ export default function Teste() {
         placeholderText="Clique para agendar seu horário"
         selected={selectedDate}
         onChange={(date) => setSelectedDate(date)}
-        timeCaption="time"
-        dateFormat="dd/MM/yyyy hh:mm:aa"
+        
+        dateFormat="dd/MM/yyyy"
         minDate={new Date()}
-        showTimeSelect="HH"
-        timeIntervals={60}
+        
         maxDate={addDays(new Date(), 7)}
         filterDate={(date) => date.getDay() !== 6 && date.getDay(0)}
         todayButton="hoje"
       />
+
+      <ul>
+        <li>
+          <span><input type="radio" />12:00</span>
+        </li>
+        <li>
+        <span><input type="radio" />12:00</span>
+        </li>
+        <li>
+        <span><input type="radio" />12:00</span>
+        </li>
+      </ul>
 
       <button type="submit">Agendar</button>
     </form>

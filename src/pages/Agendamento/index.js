@@ -13,6 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export default function Agendamento(props) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [provider, setProvider] = useState("");
+  const [hour, setHour] = useState("");
   const history = useHistory();
 
   const name = sessionStorage.getItem("name");
@@ -22,8 +23,11 @@ export default function Agendamento(props) {
   async function handleAgendamento(e) {
     e.preventDefault();
 
+    if (selectedDate == null) {
+      return alert("Preencha uma data");
+    }
     const date =
-      selectedDate.toLocaleDateString() + selectedDate.toLocaleTimeString();
+      selectedDate.toLocaleDateString();
 
     const datas = {
       date,
@@ -52,6 +56,7 @@ export default function Agendamento(props) {
     });
   }, [providerID]);
 
+
   validaSession();
 
   return (
@@ -72,15 +77,25 @@ export default function Agendamento(props) {
           placeholderText="Clique para agendar seu horário"
           selected={selectedDate}
           onChange={(date) => setSelectedDate(date)}
-          showTimeSelect="HH"
-          timeIntervals={60}
+          
           minDate={new Date()}
           maxDate={addDays(new Date(), 7)}
-          timeCaption="time"
-          dateFormat="dd/MM/yyyy hh:mm:aa"
+          
+          dateFormat="dd/MM/yyyy"
           filterDate={(date) => date.getDay() !== 6 && date.getDay(0)}
           todayButton="hoje"
         />
+        <ul>
+        <li>
+          <span><input type="radio" />12:00</span>
+        </li>
+        <li>
+        <span><input type="radio" />12:00</span>
+        </li>
+        <li>
+        <span><input type="radio" />12:00</span>
+        </li>
+      </ul>
         <button type="submit">Agendar</button>
       </form>
     </div>
