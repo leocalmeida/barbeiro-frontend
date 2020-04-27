@@ -11,8 +11,10 @@ import "./styles.css";
 
 import "react-datepicker/dist/react-datepicker.css";
 export default function Agendamento(props) {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [provider, setProvider] = useState("");
+  const [hours, setHours] = useState("");
+
   const [hour, setHour] = useState("");
   const history = useHistory();
 
@@ -26,8 +28,7 @@ export default function Agendamento(props) {
     if (selectedDate == null) {
       return alert("Preencha uma data");
     }
-    const date =
-      selectedDate.toLocaleDateString();
+    const date = selectedDate.toLocaleDateString() + "|" + hour;
 
     const datas = {
       date,
@@ -35,12 +36,14 @@ export default function Agendamento(props) {
       providerID,
     };
 
-    try {
-      await api.post("/agendamento/agendadoteste", datas);
+    console.log(datas);
+
+    const result = await api.post("/agendamento/agendado", datas);
+    if (result.data === true) {
       alert("Agendamento realizado com sucesso");
       history.push("/dashboard");
-    } catch (error) {
-      console.log(error);
+    } else {
+      alert("Horário não disponível");
     }
   }
 
@@ -51,11 +54,20 @@ export default function Agendamento(props) {
   }
 
   useEffect(() => {
-    api.get(`agendamentoteste/${providerID}`).then((response) => {
+    api.get(`agendamento/${providerID}`).then((response) => {
       setProvider(response.data);
     });
   }, [providerID]);
 
+  useEffect(() => {
+    const date = selectedDate.toLocaleDateString();
+    const data = {
+      date,
+    };
+    api.post(`available/${providerID}`, data).then((response) => {
+      setHours(response.data);
+    });
+  }, [selectedDate]);
 
   validaSession();
 
@@ -77,25 +89,28 @@ export default function Agendamento(props) {
           placeholderText="Clique para agendar seu horário"
           selected={selectedDate}
           onChange={(date) => setSelectedDate(date)}
-          
           minDate={new Date()}
           maxDate={addDays(new Date(), 7)}
-          
           dateFormat="dd/MM/yyyy"
           filterDate={(date) => date.getDay() !== 6 && date.getDay(0)}
           todayButton="hoje"
         />
-        <ul>
-        <li>
-          <span><input type="radio" />12:00</span>
-        </li>
-        <li>
-        <span><input type="radio" />12:00</span>
-        </li>
-        <li>
-        <span><input type="radio" />12:00</span>
-        </li>
-      </ul>
+        <label>Escolha uma data!</label>
+
+        <ul className="horarios">
+          {hours &&
+            hours.map((hour) => (
+              <li key={hour}>
+                <input
+                  type="radio"
+                  name="horarios"
+                  onChange={(e) => setHour(hour)}
+                />
+                <span>{hour}</span>
+              </li>
+            ))}
+        </ul>
+
         <button type="submit">Agendar</button>
       </form>
     </div>

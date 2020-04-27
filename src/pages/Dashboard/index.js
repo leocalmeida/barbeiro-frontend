@@ -23,14 +23,13 @@ export default function Dashboard() {
 
   useEffect(() => {
     api
-      .get("dashboardteste", {
+      .get("dashboard", {
         headers: {
           authorization: userID,
         },
       })
       .then((response) => {
         setProviders(response.data);
-        
       });
   }, [userID]);
 

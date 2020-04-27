@@ -27,7 +27,8 @@ export default function Register() {
 
     try {
       // await api.post("signup", data);
-      await api.post("signupteste", data);
+      console.log(data);
+      await api.post("signup", data);
 
       alert("Usuário cadastrado com sucesso");
       history.push("/");

@@ -19,7 +19,7 @@ export default function Principal() {
     };
 
     try {
-      const response = await api.post("signinteste", data);
+      const response = await api.post("signin", data);
       console.log(response);
 
       if (response.data !== "Senha Inválida") {

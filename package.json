@@ -7,17 +7,15 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
-    
+    "moment-timezone": "^0.5.28",
     "react": "^16.13.1",
-    
     "react-datepicker": "^2.14.1",
-    
     "react-dom": "^16.13.1",
-    
+    "react-flatpickr": "^3.10.0",
     "react-icons": "^3.9.0",
+    "react-moment": "^0.9.7",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1"
-    
   },
   "scripts": {
     "start": "react-scripts start",
