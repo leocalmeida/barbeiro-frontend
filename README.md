@@ -1,5 +1,5 @@
-[![Generic badge](https://img.shields.io/badge/React->=16.13.1-blue.svg)](https://shields.io/)
-[![Generic badge](https://img.shields.io/badge/React_Hooks-Yes-81BEF7.svg)](https://shields.io/)
+[![React](https://img.shields.io/badge/React->=16.13.1-blue.svg)](https://reactjs.org/)
+[![React Hooks](https://img.shields.io/badge/React_Hooks-Yes-81BEF7.svg)](https://reactjs.org/docs/hooks-intro.html)
 
 Esse projeto foi iniciado com [Create React App](https://github.com/facebook/create-react-app).
 # Barbearia GoBarber
